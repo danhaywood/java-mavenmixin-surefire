@@ -123,9 +123,11 @@
                         </configuration>
                         <executions>
                             <execution>
+                                <id>test</id>
                                 <phase>test</phase>
                             </execution>
                             <execution>
+                                <id>integration-test</id>
                                 <phase>integration-test</phase>
                             </execution>
                         </executions>
