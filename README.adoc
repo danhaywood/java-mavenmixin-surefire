@@ -77,13 +77,13 @@ The mixin configures the `surefire` plugin for three separate executions:
 
 * `mvn test` +
 +
-Runs all unit tests, matching the name `\*UnitTest*.java`.
+Runs all unit tests, matching the name ``\*UnitTest*.java``.
 
 * `mvn verify` +
 +
-Runs the unit tests (because `test` phase precedes `verify` phase) and also the integration tests and Cucumber BDD specs.
-Integration tests must match the name `\*IntegTest*.java`.
-link:https://cucumber.io/docs/reference/jvm#running-cucumber[BDD specs] must match the name `\*IntegBddSpecs.java`. +
+Runs the unit tests (because `test` phase precedes `verify` phase) and also the integration tests and link:https://cucumber.io/docs/reference/jvm#running-cucumber[Cucumber BDD specs].
+Integration tests must match the name ``\*IntegTest*.java``.
+BDD spec runners must match the name ``\*IntegBddSpecs*.java``. +
 +
 [TIP]
 ====
