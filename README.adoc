@@ -16,19 +16,6 @@ This module was initially developed for use within link:http://isis.apache.org[A
 
 
 
-== Properties
-
-The plugin defines one optional property:
-
-[source,xml]
-----
-<properties>
-	<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-</properties>
-----
-
-This can be overriden in the consuming pom as required.
-
 
 
 == How to Configure
@@ -51,7 +38,7 @@ To configure:
                     <mixin>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>surefire</artifactId>
-                        <version>0.0.1</version>
+                        <version>0.0.2</version>
                     </mixin>
                 </mixins>
             </configuration>
@@ -60,7 +47,6 @@ To configure:
 </build>
 ----
 
-* If required, override any of the optional input properties (see above).
 
 
 To disable the (profile contributed by this) mixin, pass the following system property to `mvn`:
@@ -72,6 +58,7 @@ mvn -Dskip.danhaywood-mavenmixin-surefire
 
 
 == How to Use
+
 
 The mixin configures the `surefire` plugin for three separate executions:
 
@@ -90,6 +77,12 @@ BDD spec runners must match the name ``\*IntegBddSpecs*.java``. +
 In fact the executions are bound to Maven's `integration-test` phase, but "verify" is shorter to run.
 ====
 
+If any of the unit tests or integration tests fail, then the build will fail.
+For BDD specs, though, a failing spec will *not* cause the build to fail.
+This allows a report of the BDD specs to then be generated (see link:https://github.com/danhaywood/java-mavenmixin-cucumberreporting[danhaywood/mavenmixin-cucumberreporting]).
+
+
+
 It's also possible to skip any one of these types of tests:
 
 * `mvn -DskipUTs` +
@@ -107,6 +100,8 @@ will skip running the BDD specs
 The usual `mvn -DskipTests` can also be used to skip *all* tests.
 
 
+
+
 == Known issues
 
 None currently
@@ -115,8 +110,16 @@ None currently
 
 == Change Log
 
+* `0.0.2` - fixes issue with -DskipITs, also ensure that BDD specs are always run.
+            Removes the optional configuration property defining the plugin version (seemed to be ignored).
+            References the danhaywood/cucumberreporting maven mixin in the README.
 * `0.0.1` - first release.
 
+
+
+== See also
+
+If the consuming module defines cucumber BDD specs, then the  link:https://github.com/danhaywood/java-mavenmixin-cucumberreporting[danhaywood/mavenmixin-cucumberreporting] maven mixin can be used to configure cucumber reporting plugins.
 
 
 
@@ -168,8 +171,8 @@ For example:
 
 [source]
 ----
-sh release.sh 0.0.1 \
-              0.0.2-SNAPSHOT \
+sh release.sh 0.0.2 \
+              0.0.3-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
