@@ -17,10 +17,19 @@ This module was initially developed for use within link:http://isis.apache.org[A
 
 
 
-
 == How to Configure
 
 To configure:
+
+* copy and paste these plugin versions into the `<properties>` section of either the consuming module or (better still) a parent pom of the consuming module: +
++
+[source,xml]
+----
+<properties>
+    <danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>
+    <danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>
+</properties>
+----
 
 * add the following to the `pom.xml` of the module(s) containing tests (of any sort): +
 +
@@ -110,6 +119,8 @@ None currently
 
 == Change Log
 
+* `0.0.3` - relaxes naming convention for unit tests: will match `Test*.java` and `*Test.java`, but excludes `*IntegTest*.java` and `*Testing.java` (eg `CustomerForTesting.java`)
+            In previous release, required unit tests to be match `*UnitTest*.java`.
 * `0.0.2` - fixes issue with -DskipITs, also ensure that BDD specs are always run.
             Removes the optional configuration property defining the plugin version (seemed to be ignored).
             References the danhaywood/cucumberreporting maven mixin in the README.
@@ -171,8 +182,8 @@ For example:
 
 [source]
 ----
-sh release.sh 0.0.2 \
-              0.0.3-SNAPSHOT \
+sh release.sh 0.0.3 \
+              0.0.4-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -192,7 +203,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 0.0.2
+git push origin 0.0.3
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

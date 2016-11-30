@@ -47,6 +47,10 @@
             </activation>
 
             <properties>
+
+                <danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>
+                <danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>
+
                 <skipTests>false</skipTests>
                 <skipUTs>${skipTests}</skipUTs>
                 <skipITs>${skipTests}</skipITs>
@@ -54,83 +58,99 @@
             </properties>
   
             <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>${danhaywood-mavenmixin-surefire.maven-surefire-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>default-test</id>
+                                    <phase>test</phase>
+                                    <goals><goal>test</goal></goals>
+                                    <configuration>
+                                        <skipTests>${skipUTs}</skipTests>
+                                        <includes>
+                                            <include>**/*Test*.java</include>
+                                        </includes>
+                                        <excludes>
+                                            <exclude>**/*Testing.java</exclude>
+                                            <exclude>**/*IntegTest*.java</exclude>
+                                            <exclude>**/*Abstract*.java</exclude>
+                                        </excludes>
+                                        <useFile>true</useFile>
+                                        <printSummary>true</printSummary>
+                                        <reportsDirectory>${project.build.directory}/surefire-unittest-reports</reportsDirectory>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>integ-test</id>
+                                    <phase>integration-test</phase>
+                                    <goals><goal>test</goal></goals>
+                                    <configuration>
+                                        <skipTests>${skipITs}</skipTests>
+                                        <includes>
+                                            <include>**/*IntegTest*.java</include>
+                                        </includes>
+                                        <excludes>
+                                            <exclude>**/*Abstract*.java</exclude>
+                                        </excludes>
+                                        <useFile>true</useFile>
+                                        <printSummary>true</printSummary>
+                                        <reportsDirectory>${project.build.directory}/surefire-integtest-reports</reportsDirectory>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>integ-bddspecs</id>
+                                    <phase>integration-test</phase>
+                                    <goals><goal>test</goal></goals>
+                                    <configuration>
+                                        <skipTests>${skipBSs}</skipTests>
+                                        <includes>
+                                            <include>**/*IntegBddSpecs.java</include>
+                                        </includes>
+                                        <excludes>
+                                            <exclude>**/*Abstract*.java</exclude>
+                                        </excludes>
+                                        <useFile>true</useFile>
+                                        <printSummary>true</printSummary>
+                                        <testFailureIgnore>true</testFailureIgnore>
+                                        <reportsDirectory>${project.build.directory}/surefire-integbddspecs-reports</reportsDirectory>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <version>${danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version}</version>
+                            <configuration>
+                                <showSuccess>false</showSuccess>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>test</id>
+                                    <phase>test</phase>
+                                </execution>
+                                <execution>
+                                    <id>integration-test</id>
+                                    <phase>integration-test</phase>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.19.1</version>
-                        <executions>
-                            <execution>
-                                <id>default-test</id>
-                                <phase>test</phase>
-                                <goals><goal>test</goal></goals>
-                                <configuration>
-                                    <skipTests>${skipUTs}</skipTests>
-                                    <includes>
-                                        <include>**/*UnitTest*.java</include>
-                                    </includes>
-                                    <excludes>
-                                        <exclude>**/*Abstract*.java</exclude>
-                                    </excludes>
-                                    <useFile>true</useFile>
-                                    <printSummary>true</printSummary>
-                                    <reportsDirectory>${project.build.directory}/surefire-unittest-reports</reportsDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>integ-test</id>
-                                <phase>integration-test</phase>
-                                <goals><goal>test</goal></goals>
-                                <configuration>
-                                    <skipTests>${skipITs}</skipTests>
-                                    <includes>
-                                        <include>**/*IntegTest*.java</include>
-                                    </includes>
-                                    <excludes>
-                                        <exclude>**/*Abstract*.java</exclude>
-                                    </excludes>
-                                    <useFile>true</useFile>
-                                    <printSummary>true</printSummary>
-                                    <reportsDirectory>${project.build.directory}/surefire-integtest-reports</reportsDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>integ-bddspecs</id>
-                                <phase>integration-test</phase>
-                                <goals><goal>test</goal></goals>
-                                <configuration>
-                                    <skipTests>${skipBSs}</skipTests>
-                                    <includes>
-                                        <include>**/*IntegBddSpecs.java</include>
-                                    </includes>
-                                    <excludes>
-                                        <exclude>**/*Abstract*.java</exclude>
-                                    </excludes>
-                                    <useFile>true</useFile>
-                                    <printSummary>true</printSummary>
-									<testFailureIgnore>true</testFailureIgnore>
-                                    <reportsDirectory>${project.build.directory}/surefire-integbddspecs-reports</reportsDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
+                        <version>${danhaywood-mavenmixin-surefire.maven-surefire-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-report-plugin</artifactId>
-                        <version>2.19.1</version>
-                        <configuration>
-                            <showSuccess>false</showSuccess>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>test</id>
-                                <phase>test</phase>
-                            </execution>
-                            <execution>
-                                <id>integration-test</id>
-                                <phase>integration-test</phase>
-                            </execution>
-                        </executions>
+                        <version>${danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version}</version>
                     </plugin>
                 </plugins>
             </build>
