@@ -26,6 +26,7 @@ To configure:
 [source,xml]
 ----
 <properties>
+    <danhaywood-mavenmixin-surefire.version>0.0.3</danhaywood-mavenmixin-surefire.version>
     <danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>
     <danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>
 </properties>
@@ -47,7 +48,7 @@ To configure:
                     <mixin>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>surefire</artifactId>
-                        <version>0.0.2</version>
+                        <version>${danhaywood-mavenmixin-surefire.version}</version>
                     </mixin>
                 </mixins>
             </configuration>
@@ -73,7 +74,7 @@ The mixin configures the `surefire` plugin for three separate executions:
 
 * `mvn test` +
 +
-Runs all unit tests, matching the name ``\*UnitTest*.java``.
+Runs all unit tests, matching the name ``\*Test*.java`` (but excluding `*IntegTest*.java`, see below, also `*Testing.java`).
 
 * `mvn verify` +
 +
@@ -83,7 +84,7 @@ BDD spec runners must match the name ``\*IntegBddSpecs*.java``. +
 +
 [TIP]
 ====
-In fact the executions are bound to Maven's `integration-test` phase, but "verify" is shorter to run.
+In fact the executions are bound to Maven's `integration-test` phase, but "verify" is shorter to type.
 ====
 
 If any of the unit tests or integration tests fail, then the build will fail.
@@ -121,6 +122,7 @@ None currently
 
 * `0.0.3` - relaxes naming convention for unit tests: will match `Test*.java` and `*Test.java`, but excludes `*IntegTest*.java` and `*Testing.java` (eg `CustomerForTesting.java`)
             In previous release, required unit tests to be match `*UnitTest*.java`.
+            Also, introduces properties to fix down the plugin versions.
 * `0.0.2` - fixes issue with -DskipITs, also ensure that BDD specs are always run.
             Removes the optional configuration property defining the plugin version (seemed to be ignored).
             References the danhaywood/cucumberreporting maven mixin in the README.
