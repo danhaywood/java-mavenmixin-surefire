@@ -74,7 +74,7 @@ The mixin configures the `surefire` plugin for three separate executions:
 
 * `mvn test` +
 +
-Runs all unit tests, matching the name ``\*Test*.java`` (but excluding ``\*IntegTest*.java``, see below, also ``\*Testing.java``).
+Runs all unit tests, matching the name ``\*Test*.java`` (but excluding ``\*IntegTest*.java``, see below, also ``*Testing.java``).
 
 * `mvn verify` +
 +
