@@ -122,8 +122,7 @@ None currently
 
 == Change Log
 
-* `0.0.3` - relaxes naming convention for unit tests: will match `Test*.java` and `*Test.java`, but excludes ``\*IntegTest*.java`` and `*Testing.java` (eg `CustomerForTesting.java`)
-            In previous release, required unit tests to be match `*UnitTest*.java`.
+* `0.0.3` - relaxes naming convention for unit tests: will now match ``Test*.java`` and ``\*Test.java``, but excludes ``\*IntegTest\*.java`` and ``\*Testing.java`` (eg ``CustomerForTesting.java``)
             Also, introduces properties to fix down the plugin versions.
 * `0.0.2` - fixes issue with -DskipITs, also ensure that BDD specs are always run.
             Removes the optional configuration property defining the plugin version (seemed to be ignored).
