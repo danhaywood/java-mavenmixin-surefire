@@ -27,7 +27,7 @@ To configure:
 ----
 <properties>
     ...
-    <mavenmixin-surefire.version>0.0.3</mavenmixin-surefire.version>
+    <mavenmixin-surefire.version>0.0.4</mavenmixin-surefire.version>
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     <maven-surefire-report-plugin.version>2.19.1</maven-surefire-report-plugin.version>
     ...
@@ -212,8 +212,8 @@ For example:
 
 [source]
 ----
-sh release.sh 0.0.3 \
-              0.0.4-SNAPSHOT \
+sh release.sh 0.0.4 \
+              0.0.5-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -233,7 +233,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 0.0.3
+git push origin 0.0.4
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.
