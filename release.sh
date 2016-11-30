@@ -15,7 +15,7 @@ fi
 echo ""
 echo "sanity check (mvn clean package -o)"
 echo ""
-mvn clean package -Dskip.danhaywood-mavenmixin-surefire -o >/dev/null
+mvn clean package -Dskip.mavenmixin-surefire -o >/dev/null
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
@@ -35,7 +35,7 @@ fi
 echo ""
 echo "double-check (mvn clean package -o)"
 echo ""
-mvn clean package -Dskip.danhaywood-mavenmixin-surefire -o >/dev/null
+mvn clean package -Dskip.mavenmixin-surefire -o >/dev/null
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1
@@ -45,7 +45,7 @@ fi
 echo ""
 echo "releasing module (mvn clean deploy)"
 echo ""
-mvn clean deploy -Pdanhaywood-mavenmixin-sonatyperelease -Dskip.danhaywood-mavenmixin-surefire -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
+mvn clean deploy -Pdanhaywood-mavenmixin-sonatyperelease -Dskip.mavenmixin-surefire -Dpgp.secretkey=keyring:id=$KEYID -Dpgp.passphrase="literal:$PASSPHRASE"
 if [ $? != 0 ]; then
     echo "... failed" >&2
     exit 1

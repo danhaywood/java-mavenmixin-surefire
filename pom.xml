@@ -39,17 +39,17 @@
         
     <profiles>
         <profile>
-            <id>danhaywood-mavenmixin-surefire</id>
+            <id>mavenmixin-surefire</id>
             <activation>
                 <property>
-                    <name>!skip.danhaywood-mavenmixin-surefire</name>
+                    <name>!skip.mavenmixin-surefire</name>
                 </property>
             </activation>
 
             <properties>
 
-                <danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>
-                <danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>
+                <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+                <maven-surefire-report-plugin.version>2.19.1</maven-surefire-report-plugin.version>
 
                 <skipTests>false</skipTests>
                 <skipUTs>${skipTests}</skipUTs>
@@ -63,7 +63,7 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>${danhaywood-mavenmixin-surefire.maven-surefire-plugin.version}</version>
+                            <version>${maven-surefire-plugin.version}</version>
                             <executions>
                                 <execution>
                                     <id>default-test</id>
@@ -112,6 +112,7 @@
                                         </includes>
                                         <excludes>
                                             <exclude>**/*Abstract*.java</exclude>
+                                            <exclude>**/*Test*.java</exclude>
                                         </excludes>
                                         <useFile>true</useFile>
                                         <printSummary>true</printSummary>
@@ -124,7 +125,7 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-surefire-report-plugin</artifactId>
-                            <version>${danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version}</version>
+                            <version>${maven-surefire-report-plugin.version}</version>
                             <configuration>
                                 <showSuccess>false</showSuccess>
                             </configuration>
@@ -145,12 +146,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${danhaywood-mavenmixin-surefire.maven-surefire-plugin.version}</version>
+                        <version>${maven-surefire-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-report-plugin</artifactId>
-                        <version>${danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version}</version>
+                        <version>${maven-surefire-report-plugin.version}</version>
                     </plugin>
                 </plugins>
             </build>

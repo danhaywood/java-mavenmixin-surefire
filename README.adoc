@@ -21,18 +21,44 @@ This module was initially developed for use within link:http://isis.apache.org[A
 
 To configure:
 
-* copy and paste these plugin versions into the `<properties>` section of either the consuming module or (better still) a parent pom of the consuming module: +
+* copy and paste the following into either the `pom.xml` of the consuming module or (better still) the `pom.xml` of the top-level parent of the consuming module: +
 +
 [source,xml]
 ----
 <properties>
-    <danhaywood-mavenmixin-surefire.version>0.0.3</danhaywood-mavenmixin-surefire.version>
-    <danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-plugin.version>
-    <danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>2.19.1</danhaywood-mavenmixin-surefire.maven-surefire-report-plugin.version>
+    ...
+    <mavenmixin-surefire.version>0.0.3</mavenmixin-surefire.version>
+    <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+    <maven-surefire-report-plugin.version>2.19.1</maven-surefire-report-plugin.version>
+    ...
 </properties>
 ----
++
+and: +
++
+[source,xml]
+----
+<build>
+    <pluginManagement>
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven-surefire-report-plugin.version}</version>
+            </plugin>
+            ...
+        </plugins>
+    </pluginManagement>
+</build>
+----
 
-* add the following to the `pom.xml` of the module(s) containing tests (of any sort): +
+* add the following to the `pom.xml` of the consuming module (containing tests of any sort): +
 +
 [source,xml]
 ----
@@ -48,7 +74,7 @@ To configure:
                     <mixin>
                         <groupId>com.danhaywood.mavenmixin</groupId>
                         <artifactId>surefire</artifactId>
-                        <version>${danhaywood-mavenmixin-surefire.version}</version>
+                        <version>${mavenmixin-surefire.version}</version>
                     </mixin>
                 </mixins>
             </configuration>
@@ -63,7 +89,7 @@ To disable the (profile contributed by this) mixin, pass the following system pr
 
 [source,bash]
 ----
-mvn -Dskip.danhaywood-mavenmixin-surefire
+mvn -Dskip.mavenmixin-surefire
 ----
 
 
@@ -122,6 +148,7 @@ None currently
 
 == Change Log
 
+* `0.0.4` - updates README for properties and plugin management, shortens property names and profile id
 * `0.0.3` - relaxes naming convention for unit tests: will now match ``Test*.java`` and ``\*Test.java``, but excludes ``*IntegTest*.java`` and ``*Testing.java`` (eg ``CustomerForTesting.java``)
             Also, introduces properties to fix down the plugin versions.
 * `0.0.2` - fixes issue with -DskipITs, also ensure that BDD specs are always run.
