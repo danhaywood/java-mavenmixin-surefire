@@ -83,9 +83,19 @@ and: +
 </build>
 ----
 
-
+* optionally, configure the `isis.integTest.module` property:
 
 To disable the (profile contributed by this) mixin, pass the following system property to `mvn`:
++
+[source,xml]
+----
+<properties>
+    <isis.integTest.module>com.mycompany.myapp.MyApplicationModule</isis.integTest.module>
+    ...
+</properties>
+----
++
+This will be passed through as a system property when running integration tests.
 
 [source,bash]
 ----

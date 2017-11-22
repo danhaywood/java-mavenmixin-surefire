@@ -51,6 +51,7 @@
                 <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
                 <maven-surefire-report-plugin.version>2.19.1</maven-surefire-report-plugin.version>
 
+                <isis.integTest.module></isis.integTest.module>
                 <skipTests>false</skipTests>
                 <skipUTs>${skipTests}</skipUTs>
                 <skipITs>${skipTests}</skipITs>
@@ -99,6 +100,9 @@
                                         <useFile>true</useFile>
                                         <printSummary>true</printSummary>
                                         <reportsDirectory>${project.build.directory}/surefire-integtest-reports</reportsDirectory>
+                                        <systemPropertyVariables>
+                                            <isis.integTest.module>${isis.integTest.module}</isis.integTest.module>
+                                        </systemPropertyVariables>
                                     </configuration>
                                 </execution>
                                 <execution>
