@@ -85,6 +85,7 @@ and: +
 
 * optionally, configure the `isis.integTest.module` property:
 
++
 To disable the (profile contributed by this) mixin, pass the following system property to `mvn`:
 +
 [source,xml]
@@ -96,11 +97,20 @@ To disable the (profile contributed by this) mixin, pass the following system pr
 ----
 +
 This will be passed through as a system property when running integration tests.
+For integration tests extending from `IntegrationTestAbstract3`, this is used as an override to bootstrap the application with some other, usually larger, set of modules.
+This is needed to avoid the framework (attempting to) teardown and reinitialize the runtime for integration tests that are each bootstrapped with a different `Module`.
 
-[source,bash]
+* optionally, configure the `surefire-plugin.argLine` property:
+
++
+[source,xml]
 ----
-mvn -Dskip.mavenmixin-surefire
+<properties>
+    <surefire-plugin.argLine>-Xms1024m -Xmx1024m</surefire-plugin.argLine>
+</properties>
 ----
++
+This is passed through to each surefire invocation (run in forked mode).
 
 
 == How to Use
@@ -158,6 +168,8 @@ None currently
 
 == Change Log
 
+* `0.0.6` - support `surefire-plugin.argLine` property, and run in forked mode
+* `0.0.5` - support `isis.integTest.module` property
 * `0.0.4` - updates README for properties and plugin management, shortens property names and profile id
 * `0.0.3` - relaxes naming convention for unit tests: will now match ``Test*.java`` and ``\*Test.java``, but excludes ``*IntegTest*.java`` and ``*Testing.java`` (eg ``CustomerForTesting.java``)
             Also, introduces properties to fix down the plugin versions.
@@ -222,8 +234,8 @@ For example:
 
 [source]
 ----
-sh release.sh 0.0.5 \
-              0.0.6-SNAPSHOT \
+sh release.sh 0.0.6 \
+              0.0.7-SNAPSHOT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"
 ----
@@ -243,7 +255,7 @@ If the script completes successfully, then push changes:
 [source]
 ----
 git push origin master
-git push origin 0.0.4
+git push origin 0.0.6
 ----
 
 If the script fails to complete, then identify the cause, perform a `git reset --hard` to start over and fix the issue before trying again.

@@ -51,11 +51,15 @@
                 <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
                 <maven-surefire-report-plugin.version>2.19.1</maven-surefire-report-plugin.version>
 
+                <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+
                 <isis.integTest.module></isis.integTest.module>
                 <skipTests>false</skipTests>
                 <skipUTs>${skipTests}</skipUTs>
                 <skipITs>${skipTests}</skipITs>
                 <skipBSs>${skipTests}</skipBSs>
+
+                <surefire-plugin.argLine></surefire-plugin.argLine>
             </properties>
   
             <build>
@@ -83,6 +87,9 @@
                                         <useFile>true</useFile>
                                         <printSummary>true</printSummary>
                                         <reportsDirectory>${project.build.directory}/surefire-unittest-reports</reportsDirectory>
+                                        <forkCount>1</forkCount>
+                                        <reuseForks>true</reuseForks>
+                                        <argLine>${surefire-plugin.argLine}</argLine>
                                     </configuration>
                                 </execution>
                                 <execution>
@@ -103,6 +110,9 @@
                                         <systemPropertyVariables>
                                             <isis.integTest.module>${isis.integTest.module}</isis.integTest.module>
                                         </systemPropertyVariables>
+                                        <forkCount>1</forkCount>
+                                        <reuseForks>true</reuseForks>
+                                        <argLine>${surefire-plugin.argLine}</argLine>
                                     </configuration>
                                 </execution>
                                 <execution>
@@ -122,6 +132,9 @@
                                         <printSummary>true</printSummary>
                                         <testFailureIgnore>true</testFailureIgnore>
                                         <reportsDirectory>${project.build.directory}/surefire-integbddspecs-reports</reportsDirectory>
+                                        <forkCount>1</forkCount>
+                                        <reuseForks>true</reuseForks>
+                                        <argLine>${surefire-plugin.argLine}</argLine>
                                     </configuration>
                                 </execution>
                             </executions>
